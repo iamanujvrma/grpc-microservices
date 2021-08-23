@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./../proto";
+
+import "google/protobuf/empty.proto";
+
+message Employees {
+    int64 ID =1;
+    string Name=2;
+}
+
+message EmployeesListResponse{
+    repeated Employees Employees=1;
+}
+
+service EmployeeService {
+    rpc GetEmployees(google.protobuf.Empty) returns (EmployeesListResponse);
+}
