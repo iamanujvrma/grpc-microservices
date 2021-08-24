@@ -1,11 +1,15 @@
-FROM golang:alpine
+FROM golang:1.16-alpine AS builder
+
+RUN apk add --no-cache git
 
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
     GOARCH=amd64 \
-    GRPC_PORT=9001
+    GRPC_PORT=9001 \
+    GITHUB_PAT=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
 
+RUN git config --global url."https://${GITHUB_PAT}:x-oauth-basic@github.com/Fatema-Moaiyadi".insteadOf "https://github.com/Fatema-Moaiyadi"
 
 WORKDIR /user_service
 
@@ -24,6 +28,15 @@ RUN go build -o bin .
 #now dir structure inside docker image becomes /user_service/bin (binary is in bin)
 
 
-EXPOSE 9001
+FROM alpine:latest
 
-CMD ["/user_service/bin"]
+RUN apk add --no-cache git
+
+RUN apk upgrade --update \
+    && apk add bash git gcc g++ libc-dev
+
+
+WORKDIR /app
+
+COPY --from=builder /user_service/bin /app/bin
+RUN touch /app/application.yaml

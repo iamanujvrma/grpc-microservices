@@ -1,11 +1,13 @@
-module github.com/rebelITT/mobile_core_service
+module github.com/rebelITT-service/mobile_core_service
 
 go 1.16
 
 require (
+	github.com/Fatema-Moaiyadi/rebelITT-common v0.0.0-20210823084216-ce20d989209f
 	github.com/golang/protobuf v1.5.2
 	github.com/gorilla/mux v1.8.0
 	github.com/spf13/viper v1.8.1
-	google.golang.org/grpc v1.38.0
-	google.golang.org/protobuf v1.26.0
+	google.golang.org/grpc v1.40.0
 )
+
+replace github.com/Fatema-Moaiyadi/rebelITT-common => ../rebelITT-common

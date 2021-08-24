@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Fatema-Moaiyadi/rebelITT-common/proto"
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/rebelITT/mobile_core_service/config"
-	"github.com/rebelITT/mobile_core_service/proto"
+	"github.com/rebelITT-service/mobile_core_service/config"
 	"google.golang.org/grpc"
 )
 

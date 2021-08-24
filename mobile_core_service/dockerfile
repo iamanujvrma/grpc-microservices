@@ -1,4 +1,6 @@
-FROM golang:alpine
+FROM golang:1.16-alpine AS builder
+
+RUN apk add --no-cache git
 
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
@@ -6,8 +8,10 @@ ENV GO111MODULE=on \
     GOARCH=amd64 \
     APP_PORT=8000 \
     USER_GRPC_PORT=9001 \
-    EMPLOYEE_GRPC_PORT=9002
+    EMPLOYEE_GRPC_PORT=9002 \
+    GITHUB_PAT=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
 
+RUN git config --global url."https://${GITHUB_PAT}:x-oauth-basic@github.com/Fatema-Moaiyadi".insteadOf "https://github.com/Fatema-Moaiyadi"
 
 WORKDIR /mobile_core_service
 
@@ -19,13 +23,21 @@ RUN go mod download
 #to working dir specified in workdir command
 COPY . .  
 
-#run go build. write output in main
+#run go build. write output in bin
 #run all packages (specified by .) 
 RUN go build -o bin .
 
 #now dir structure inside docker image becomes /mobile_core_service/bin (binary is in bin)
 
 
-EXPOSE 8000
+FROM alpine:latest
 
-CMD ["/mobile_core_service/bin"]
+RUN apk add --no-cache git
+
+RUN apk upgrade --update \
+    && apk add bash git gcc g++ libc-dev
+
+
+WORKDIR /app
+
+COPY --from=builder /mobile_core_service/bin /app/bin
