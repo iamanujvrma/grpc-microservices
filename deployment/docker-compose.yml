@@ -7,8 +7,8 @@ services:
     environment:
       - GRPC_PORT=:9002
     ports:
-      - "127.0.0.1:9002:9002"
-    command: cp -R ../common . && docker build --tag user-service . && rm -R common/
+      - "9002:9002"
+ 
   user-service:
     build:
       context: ../user_service
@@ -16,18 +16,18 @@ services:
     environment:
       - GRPC_PORT=:9001
     ports:
-      - "127.0.0.1:9001:9001"
+      - "9001:9001"
   
   mobile-core-service:
     build:
       context: ../mobile_core_service
       dockerfile: dockerfile
     environment:
-      - APP_PORT=:8000
-      - USER_GRPC_PORT=:9001
-      - EMPLOYEE_GRPC_PORT=:9002
+      - APP_PORT=8000
+      - USER_GRPC_PORT=user-service:9001
+      - EMPLOYEE_GRPC_PORT=employee-service:9002
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
     depends_on: 
       - employee-service
       - user-service

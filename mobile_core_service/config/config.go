@@ -41,6 +41,9 @@ func Init() (err error) {
 	employeeServiceGRPCPort := viper.GetString("EMPLOYEE_GRPC_PORT")
 	config.employeeServiceGRPCPort = employeeServiceGRPCPort
 
+	fmt.Println("--------------------------------------------")
+	fmt.Printf("CONFIG:%+v", config)
+
 	return
 }
 

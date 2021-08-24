@@ -13,7 +13,6 @@ func main() {
 	if err != nil {
 		fmt.Printf("error in init. error: %s", err.Error())
 	}
-
 	err = http.ListenAndServe(":"+config.GetAppPort(), server.Routes())
 	if err != nil {
 		fmt.Printf("error in listen and serve. error: %s", err.Error())

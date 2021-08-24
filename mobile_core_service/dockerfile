@@ -10,9 +10,6 @@ ENV GO111MODULE=on \
     USER_GRPC_PORT= \
     EMPLOYEE_GRPC_PORT=
 
-RUN mkdir /common
-COPY common/ /common
-
 WORKDIR /mobile_core_service
 
 COPY go.mod .

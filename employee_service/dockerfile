@@ -8,9 +8,6 @@ ENV GO111MODULE=on \
     GOARCH=amd64 \
     GRPC_PORT=
 
-RUN mkdir /common
-COPY common/ /common
-
 WORKDIR /employee_service
 
 COPY go.mod .
@@ -38,6 +35,6 @@ RUN apk upgrade --update \
 
 WORKDIR /app/
 
-EXPOSE 8002
+EXPOSE 9002
 
-COPY --from=builder /builder/bin /app/bin
+COPY --from=builder /employee_service/bin /app/bin

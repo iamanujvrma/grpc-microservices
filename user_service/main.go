@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net"
 
+	"github.com/Fatema-Moaiyadi/common/proto"
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/iamanujvrma/grpc-microservices/common/proto"
 	"github.com/iamanujvrma/grpc-microservices/user_service/config"
 	"google.golang.org/grpc"
 )
