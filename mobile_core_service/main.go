@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/rebelITT-service/mobile_core_service/config"
-	"github.com/rebelITT-service/mobile_core_service/server"
+	"github.com/iamanujvrma/grpc-microservices/mobile_core_service/config"
+	"github.com/iamanujvrma/grpc-microservices/mobile_core_service/server"
 )
 
 func main() {

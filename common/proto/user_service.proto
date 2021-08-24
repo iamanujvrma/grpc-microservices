@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./../proto";
+
+import "google/protobuf/empty.proto";
+
+message User {
+    int64 ID =1;
+    string Name=2;
+}
+
+message UserListResponse{
+    repeated User Users=1;
+}
+
+service UserService {
+    rpc GetUsers(google.protobuf.Empty) returns (UserListResponse);
+}

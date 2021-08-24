@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/Fatema-Moaiyadi/rebelITT-common/proto"
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/rebelITT-service/user_service/config"
+	"github.com/iamanujvrma/grpc-microservices/common/proto"
+	"github.com/iamanujvrma/grpc-microservices/user_service/config"
 	"google.golang.org/grpc"
 )
 
