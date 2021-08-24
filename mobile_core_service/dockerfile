@@ -6,12 +6,12 @@ ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
     GOARCH=amd64 \
-    APP_PORT=8000 \
-    USER_GRPC_PORT=9001 \
-    EMPLOYEE_GRPC_PORT=9002 \
-    GITHUB_PAT=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
+    APP_PORT= \
+    USER_GRPC_PORT= \
+    EMPLOYEE_GRPC_PORT=
 
-RUN git config --global url."https://${GITHUB_PAT}:x-oauth-basic@github.com/Fatema-Moaiyadi".insteadOf "https://github.com/Fatema-Moaiyadi"
+RUN mkdir /common
+COPY common/ /common
 
 WORKDIR /mobile_core_service
 
@@ -39,5 +39,7 @@ RUN apk upgrade --update \
 
 
 WORKDIR /app
+
+EXPOSE 8000
 
 COPY --from=builder /mobile_core_service/bin /app/bin

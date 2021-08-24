@@ -1,7 +1,6 @@
 module github.com/iamanujvrma/grpc-microservices/user_service
 
 go 1.16
-
 require (
 	github.com/golang/protobuf v1.5.2
 	github.com/iamanujvrma/grpc-microservices/common v0.0.0-00010101000000-000000000000
