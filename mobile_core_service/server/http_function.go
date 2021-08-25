@@ -34,8 +34,7 @@ func GetUsers() http.HandlerFunc {
 
 		w.Header().Set("Context-Type", "application/json")
 
-		fmt.Println("starting grpc user client application")
-		conn, err := grpc.Dial(config.GetUserServiceGRPCPort(), grpc.WithInsecure(), grpc.WithBlock())
+		conn, err := grpc.Dial(config.GetUserServiceGRPCPort(), grpc.WithInsecure())
 		if err != nil {
 			fmt.Println(err)
 			return

@@ -3,6 +3,9 @@ package config
 import (
 	"errors"
 	"fmt"
+	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/spf13/viper"
 )
@@ -14,10 +17,21 @@ type configs struct {
 var config configs
 
 func Init() (err error) {
-	err = LoadConfig("./", "application")
+	exe, err := os.Executable()
+	if err != nil {
+		log.Fatalf("Error finding the currently running executable (this shouldn't happen but it somehow did): %+v", err)
+	}
+
+	pwd, err := filepath.Abs(filepath.Dir(exe))
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+
+	err = LoadConfig(pwd, "application")
 	if err != nil {
 		return
 	}
+
 	err = CheckIfSet("GRPC_PORT")
 	if err != nil {
 		return

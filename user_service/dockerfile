@@ -1,31 +1,4 @@
-FROM golang:1.16-alpine AS builder
-
-RUN apk add --no-cache git
-
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64 \
-    GRPC_PORT= 
-
-WORKDIR /user_service
- 
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
-
-#copy my code from where I am right now
-#to working dir specified in workdir command
-COPY . .  
-
-#run go build. write output in main
-#run all packages (specified by .) 
-RUN go build -o bin .
-
-#now dir structure inside docker image becomes /user_service/bin (binary is in bin)
-
-
-FROM alpine:latest
+FROM golang:1.16-alpine
 
 RUN apk add --no-cache git
 
@@ -33,8 +6,21 @@ RUN apk upgrade --update \
     && apk add bash git gcc g++ libc-dev
 
 
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64 \
+    GRPC_PORT= 
+
 WORKDIR /app
+COPY . . 
+
+WORKDIR /app
+
+RUN go mod download
+
+RUN go build -o user_service
 
 EXPOSE 9001
 
-COPY --from=builder /user_service/bin /app/bin
+CMD ["/app/user_service"]
